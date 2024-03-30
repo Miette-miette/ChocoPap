@@ -1,6 +1,9 @@
 // Catalogue produits
 
 //Recuperer le JSON et jouer la fonction
+
+let stop =0;
+
 async function catalogue(){
 
   const requestUrl= './app/products.json';
@@ -8,50 +11,89 @@ async function catalogue(){
 
   const reponse= await fetch(request);
   const produits= await reponse.json();
+ 
+  console.log(produits.length);
 
-  /*const catalogueProduits= JSON.stringify(produits);
-  console.log(catalogueProduits)*/
+  //Fonctions filtre
 
-  ficheProduit(produits);
+  if (document.getElementById("ch-all").checked==true && stop ==0){
 
-  console.log((produits));
-  console.log((produits)[1]);
-
-ficheProduit((produits)[2])
+    all(produits.length,produits);
+    console.log("if all");
+    stop =1;
   
+  }
 }
 
 
+//Creer la fiche produit
 
 function ficheProduit(jsonObj){
 
-  let myH2=
-    document.createElement("h2"); 
-    myH2.textContent=jsonObj.title;
-    document.getElementById("catalogueProduit").appendChild(myH2)
+  let imageProduit=
+    document.createElement("img");
+    imageProduit.src=jsonObj.image;
+    document.getElementById("catalogueProduit").appendChild(imageProduit);
 
+  let nomProduit=
+    document.createElement("h2"); 
+    nomProduit.textContent=jsonObj.title;
+    document.getElementById("catalogueProduit").appendChild(nomProduit);
+
+  let prixProduit=
+    document.createElement("p"); 
+    prixProduit.textContent=jsonObj.price;
+    document.getElementById("catalogueProduit").appendChild(prixProduit);
+
+  let noteProduit=
+    document.createElement("p"); 
+    noteProduit.textContent="Note:" + jsonObj.note;
+    document.getElementById("catalogueProduit").appendChild(noteProduit);
 
 }
-
 
 catalogue()
 
 
 
+// Afficher tous les produits
 
-/*let request = new XMLHttpRequest();
-request.open('GET', requestUrl, true);
+function all(jsonTaille,gamme){
+
+  console.log(jsonTaille);
+
+  for (let i=0;i<jsonTaille ;i++)
+  {
+    
+    console.log(jsonTaille);
+    console.log(i);
+    ficheProduit((gamme)[i]);
+  //catalogue((produits)[i+1]); 
+
+  }
+}
+
+
+// Filtres checked if else
+
+
+
+/*
+const requestUrl= './app/products.json';
+
+let request = new XMLHttpRequest();
+request.open('GET', requestUrl);
 request.responseType = 'json';
 request.send();
 
 console.log(request + 'request');
 
+let products=JSON.parse(request)
 
-
-request.onload= function(){
+/*request.onload= function(){
   let produits= request.response;
   ficheProduit(produits);
   
 }
 
-let products=JSON.parse(request)*/
+*/
