@@ -4,25 +4,41 @@
 
 let stop =0;
 
-async function catalogue(){
+async function catalogue()
+{
 
+  //Recupération du JSON
   const requestUrl= './app/products.json';
   const request = new Request(requestUrl);
 
   const reponse= await fetch(request);
   const produits= await reponse.json();
- 
-  console.log(produits.length);
 
-  //Fonctions filtre
+  console.log(produits);
 
-  if (document.getElementById("ch-all").checked==true && stop ==0){
+
+//Afficher tous les produits au chargement de la page
+
+  /*if (document.getElementById("ch-all").checked==true && stop ==0)
+  {
 
     all(produits.length,produits);
-    console.log("if all");
+    
     stop =1;
-  
-  }
+    console.log(stop);
+    }
+    else{
+      console.log("if all");
+      filtres();
+    }
+
+*/
+
+
+//Filtrer par categories de chocolat
+
+filtres(produits);
+
 }
 
 
@@ -30,21 +46,25 @@ async function catalogue(){
 
 function ficheProduit(jsonObj){
 
+  //Importer l'image
   let imageProduit=
     document.createElement("img");
     imageProduit.src=jsonObj.image;
     document.getElementById("catalogueProduit").appendChild(imageProduit);
 
+  //Importer le titre
   let nomProduit=
     document.createElement("h2"); 
     nomProduit.textContent=jsonObj.title;
     document.getElementById("catalogueProduit").appendChild(nomProduit);
 
+  //Importer le prix
   let prixProduit=
     document.createElement("p"); 
     prixProduit.textContent=jsonObj.price;
     document.getElementById("catalogueProduit").appendChild(prixProduit);
 
+  //Importer la note
   let noteProduit=
     document.createElement("p"); 
     noteProduit.textContent="Note:" + jsonObj.note;
@@ -52,33 +72,84 @@ function ficheProduit(jsonObj){
 
 }
 
+
+// Lancement de la fonction catalogue, pour creer la boutique dynamique
+
 catalogue()
 
 
-
-// Afficher tous les produits
+// Fonction afficher tous les produits
 
 function all(jsonTaille,gamme){
 
-  console.log(jsonTaille);
+  console.log(jsonTaille);// Taille du json produits
+  console.log(gamme);// Produits concernés
+
 
   for (let i=0;i<jsonTaille ;i++)
   {
     
     console.log(jsonTaille);
     console.log(i);
-    ficheProduit((gamme)[i]);
-  //catalogue((produits)[i+1]); 
+
+    ficheProduit((gamme)[i]); // Creer les fiches produits des elements concernés
 
   }
 }
 
 
-// Filtres checked if else
+// Fonction filtres des types de chocolats
+
+
+function filtres(gamme)
+{ 
+
+let idFiltre = document.querySelectorAll(".zone-filtre>div>input") ; //Recuperation des checkboxs
+let j=0;
+let tableau = []; //Pour stocker les objets du json concernés
+
+ // console.log(idFiltre);
+  //console.log(idFiltre[1]);
+  //console.log("fonction filtre");
+  //console.log(gamme[1].category[0]);
+
+
+  if (document.getElementById("ch-liqueur").checked==true) 
+  {
+    for (let i=0;i<idFiltre.length;i++)
+    {      
+      if (gamme[i].category.liqueur === true)
+      {
+        tableau[j] = i ;
+        j++
+
+      console.log(tableau);
+      //console.log(produits.sousCategorie[j]);
+      }
+    }
+    for (i=0;i<tableau.length;i++) // Création des fiches produits
+    {
+      console.log(gamme[tableau[i]]);
+      ficheProduit((gamme)[tableau[i]])
+    }
+  }
+  }
+
+
+
+// Code qui ne fonctionne pas
+  
+/*let j=0;
+let k;
+let categorieChocolat=produits[j]["category"][k];
+
+console.log(produits[0]["category"]["blanc"]);*/
 
 
 
 /*
+let idFiltre = document.getElementById("ch-liqueur");
+
 const requestUrl= './app/products.json';
 
 let request = new XMLHttpRequest();
