@@ -19,9 +19,9 @@ async function catalogue()
 
 //Afficher tous les produits au chargement de la page
 
-  /*if (document.getElementById("ch-all").checked==true && stop ==0)
+  if (document.getElementById("ch-all").checked==true && stop ==0)
   {
-
+    
     all(produits.length,produits);
     
     stop =1;
@@ -32,14 +32,13 @@ async function catalogue()
       filtres();
     }
 
-*/
-
-
-//Filtrer par categories de chocolat
+//Filtrer par categories de chocolats
 
 filtres(produits);
 
 }
+
+
 
 
 //Creer la fiche produit
@@ -70,6 +69,11 @@ function ficheProduit(jsonObj){
     noteProduit.textContent="Note:" + jsonObj.note;
     document.getElementById("catalogueProduit").appendChild(noteProduit);
 
+  //Creer le bouton ajouter au panier
+  let ajoutPanier=
+    document.createElement("button"); 
+    ajoutPanier.textContent="Ajouter au panier" ;
+    document.getElementById("catalogueProduit").appendChild(ajoutPanier);
 }
 
 
@@ -108,11 +112,87 @@ let idFiltre = document.querySelectorAll(".zone-filtre>div>input") ; //Recuperat
 let j=0;
 let tableau = []; //Pour stocker les objets du json concernés
 
- // console.log(idFiltre);
+  // console.log(idFiltre);
   //console.log(idFiltre[1]);
   //console.log("fonction filtre");
   //console.log(gamme[1].category[0]);
 
+
+  if (document.getElementById("ch-all").checked==true) 
+  {
+    () => {
+      if (idFiltre.checked == true){
+        idFiltre.checked= false;
+      }
+    }
+  }
+
+  
+
+  //Chocolat blanc
+
+  if (document.getElementById("ch-chocolat-blanc").checked==true) 
+  {
+    for (let i=0;i<idFiltre.length;i++)
+    {      
+      if (gamme[i].category.blanc === true)
+      {
+        tableau[j] = i ;
+        j++
+
+      console.log(tableau);
+      }
+    }
+    for (i=0;i<tableau.length;i++) // Création des fiches produits
+    {
+      console.log(gamme[tableau[i]]);
+      ficheProduit((gamme)[tableau[i]])
+    }
+  }
+
+  //Chocolat lait
+
+  if (document.getElementById("ch-chocolat-lait").checked==true) 
+  {
+    for (let i=0;i<idFiltre.length;i++)
+    {      
+      if (gamme[i].category.lait === true)
+      {
+        tableau[j] = i ;
+        j++
+
+      console.log(tableau);
+      }
+    }
+    for (i=0;i<tableau.length;i++) // Création des fiches produits
+    {
+      console.log(gamme[tableau[i]]);
+      ficheProduit((gamme)[tableau[i]])
+    }
+  }
+
+  //Chocolat noir
+
+  if (document.getElementById("ch-chocolat-noir").checked==true) 
+  {
+    for (let i=0;i<idFiltre.length;i++)
+    {      
+      if (gamme[i].category.noir === true)
+      {
+        tableau[j] = i ;
+        j++
+
+      console.log(tableau);
+      }
+    }
+    for (i=0;i<tableau.length;i++) // Création des fiches produits
+    {
+      console.log(gamme[tableau[i]]);
+      ficheProduit((gamme)[tableau[i]])
+    }
+  }
+
+  //Liqueur
 
   if (document.getElementById("ch-liqueur").checked==true) 
   {
@@ -124,7 +204,6 @@ let tableau = []; //Pour stocker les objets du json concernés
         j++
 
       console.log(tableau);
-      //console.log(produits.sousCategorie[j]);
       }
     }
     for (i=0;i<tableau.length;i++) // Création des fiches produits
@@ -133,7 +212,10 @@ let tableau = []; //Pour stocker les objets du json concernés
       ficheProduit((gamme)[tableau[i]])
     }
   }
-  }
+}
+
+
+
 
 
 

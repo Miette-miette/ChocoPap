@@ -85,25 +85,52 @@ body {
     padding: 10px;
 }
 
+main{
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+}
+#front-carousel{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    margin-top: 10%;
+    align-items: center;
+}
 
+#front-carousel>h1{
+    font-family: 'Fjalla One';
+    color: #ffffff;
+    font-weight: 300;
+    font-size: 200px;
+}
+
+#button-boutique {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+    width: fit-content;
+    
+}
 
 * {box-sizing:border-box}
 
 /* Carousel */
 .carousel-container {
   max-width: 100%;
-  max-height: 500PX;
   position: relative;
   margin: auto;
+  z-index: 1;
+}
+
+.carouselImage{
+    opacity: .7;
 }
 
 
-
-
-
-
-
-/* The dots/bullets/indicators */
 .dot {
   cursor: pointer;
   height: 15px;
@@ -117,17 +144,6 @@ body {
 
 .active, .dot:hover {
   background-color: #717171;
-}
-
-/* Fading animation */
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
 }
 
 
