@@ -152,3 +152,19 @@ h2{
     font-family: 'Droid Serif'; 
 }
 
+#catalogueProduit {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3%;
+}
+
+.card>img{
+    width: 400px;
+}
+
