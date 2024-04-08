@@ -130,6 +130,12 @@ main{
     opacity: .7;
 }
 
+#carouselControls{
+    position: absolute;
+    z-index: 2;
+    bottom: 4%;
+    right: 50%;
+}
 
 .dot {
   cursor: pointer;
@@ -164,7 +170,27 @@ h2{
     padding: 3%;
 }
 
-.card>img{
+.card>a>img{
     width: 400px;
 }
 
+.card>button{
+    display: inline-block;
+    font-family: 'Droid Serif';
+    padding: 10px;
+    border: 2px solid;
+}
+.card> h2,p{
+    margin: 2%;
+}
+
+#presentation{
+    padding-top: 2%;
+}
+#presentation>div{
+    padding: 2%;
+    margin-left: 5%;
+}
+#presentation.table{
+    padding-right: 50%;
+}

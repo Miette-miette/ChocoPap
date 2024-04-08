@@ -33,11 +33,14 @@ async function catalogue()
         {
         document.getElementById("catalogueProduit").removeChild(document.getElementById("catalogueProduit").firstChild)
         }
-      } 
+      }
 
 //Filtrer par categories de chocolats
 
 filtres(produits);
+recupererDataLien(produits);
+
+
 }
 
 
@@ -52,13 +55,20 @@ function ficheProduit(jsonObj){
     produitCard.className="card";
     document.getElementById("catalogueProduit").appendChild(produitCard);
     produitCard.style.display="flex";
-    console.log(produitCard.style.display);
+
+
+  // Création du lien vers la page produit
+  let lienProduit=
+    document.createElement("a");
+    /*lienProduit.href="produit.html?"/*+ data */;
+    produitCard.appendChild(lienProduit);
+    
 
   //Importer l'image
   let imageProduit=
     document.createElement("img");
     imageProduit.src=jsonObj.image;
-    produitCard.appendChild(imageProduit);
+    lienProduit.appendChild(imageProduit);
 
   //Importer le titre
   let nomProduit=
@@ -81,13 +91,17 @@ function ficheProduit(jsonObj){
   //Creer le bouton ajouter au panier
   let ajoutPanier=
     document.createElement("button"); 
+    ajoutPanier.className="btnPanier"
     ajoutPanier.textContent="Ajouter au panier" ;
     produitCard.appendChild(ajoutPanier);
+
+ 
 }
 
 // Lancement de la fonction catalogue, pour creer la boutique dynamique
 
 catalogue()
+
 
 // Fonction afficher tous les produits
 
@@ -100,7 +114,7 @@ function all(jsonTaille,gamme){
   for (let i=0;i<jsonTaille ;i++)
   {
     
-    console.log(jsonTaille);
+    //console.log(jsonTaille);
     console.log(i);
 
     ficheProduit((gamme)[i]); // Creer les fiches produits des elements concernés
@@ -119,7 +133,7 @@ let tableau = []; //Pour stocker les objets du json concernés
 
   // console.log(idFiltre);
 
-  //Fonction pour supprimer les fiches produits
+//Fonction pour supprimer les fiches produits
 
 function removeFiche(){
   while(document.getElementById("catalogueProduit").firstChild)
@@ -287,85 +301,58 @@ function afficherFiche(){
   }
 
   // All
-
-  /*if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
-    {
-      if (idFiltre.checked == true)
-      {
-        idFiltre.checked= false;
-      }
-
-      if (gamme[i].category === true)
-      {
-        all(tableau,gamme);
+  if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
+  {
+    for (let i=0;i<idFiltre.length;i++)
+    {      
+      if (gamme[i].category === true)// Si la checkbox est true= le tableau recupère les IDs 
+      { 
+          tableau[j] = i ;
+          j++
       
+      console.log(tableau + "all");
       }
-    }
-  /*if (document.getElementById("ch-all").checked==!true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (document.getElementById("ch-all").checked==!true)// Si la checkbox est false= les fiches produits sont supprimées
       {
         removeFiche();
-      }*/
-    
-  
+      }
+      afficherFiche();// Création des fiches produits 
+    }
+  }   
 }
+
+// Transferer des données pour la page produit
+
+function recupererDataLien(json){
+ let voirPlus= document.querySelectorAll('#catalogueProduit a');
+  console.log("recuprerdatalien");
+
+  for(let i=0;i<voirPlus.length;i++){
+    let lien=voirPlus[i];
+
+    console.log(voirPlus + "lien");
+    
+    lien.addEventListener('click',dataLien(json),false)
+    
+    }
+  
+    
+  }
+
+function dataLien(event,json){
+      let lienActif=event.target;
+      console.log(lienActif);
+
+      let idPageProd= new URLSearchParams(window.location.search);
+
+      /*for (let i=0;i<json.length;i++){
+        let urlPageProd= idPageProd.get(lienActif);
+      }*/
+      
+      //faire un if pour chercher un match entre image et id
+    }
 
 
 
 
 // Code qui ne fonctionne pas & Brouillon
-
- /*document.getElementsByClassName("card").style.display="none";
-while ((k=tableau.shift()!==undefined))
-  {
-    
-    console.log(tableau + "tableau")
-    console.log(k +"k")
-  }*/  
-
-
-/*let j=0;
-let k;
-let categorieChocolat=produits[j]["category"][k];
-
-console.log(produits[0]["category"]["blanc"]);*/
-
- /*for (let i=0;i<idFiltre.length;i++)
-{
-  if (gamme[i].category.blanc === !true)
-    {
-      document.getElementsByClassName("card").style.display='none';
-      console.log(document.getElementsByClassName("card").style.display);
-    } 
-}*/
-
-/*
-let idFiltre = document.getElementById("ch-liqueur");
-
-const requestUrl= './app/products.json';
-
-let request = new XMLHttpRequest();
-request.open('GET', requestUrl);
-request.responseType = 'json';
-request.send();
-
-console.log(request + 'request');
-
-let products=JSON.parse(request)
-
-/*request.onload= function(){
-  let produits= request.response;
-  ficheProduit(produits);
-  
-}
-
-console.log( document.getElementsByClassName("card").display);
-*/
-
- /*if (document.getElementById("ch-all").checked==true) 
-  {
-    () => {
-      if (idFiltre.checked == true){
-        idFiltre.checked= false;
-      }
-    }
-  }*/
