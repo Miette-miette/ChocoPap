@@ -16,30 +16,13 @@ async function catalogue()
 
   console.log(produits);
 
-
-//Afficher tous les produits au chargement de la page
-
-  if (document.getElementById("ch-all").checked==true && stop ==0)
-  {
-    
-    all(produits.length,produits);
-    
-    stop =1;
-    console.log(stop);
-    }
-    if (document.getElementById("ch-all").checked === !true)
-      {
-        while(document.getElementById("catalogueProduit").firstChild)
-        {
-        document.getElementById("catalogueProduit").removeChild(document.getElementById("catalogueProduit").firstChild)
-        }
-      }
-
 //Filtrer par categories de chocolats
 
-filtres(produits);
-recupererDataLien(produits);
+filtres(produits.length,produits);
 
+// Recuperer les données pour la page produit 
+
+recupererDataLien(produits);
 
 }
 
@@ -107,23 +90,19 @@ catalogue()
 
 function all(jsonTaille,gamme){
 
-  console.log(jsonTaille);// Taille du json produits
-  console.log(gamme);// Produits concernés
+  //console.log(jsonTaille);// Taille du json produits
+  //console.log(gamme);// Produits concernés
 
 
   for (let i=0;i<jsonTaille ;i++)
   {
-    
-    //console.log(jsonTaille);
-    console.log(i);
-
     ficheProduit((gamme)[i]); // Creer les fiches produits des elements concernés
   }
 }
 
 // Fonction filtres des types de chocolats
 
-function filtres(gamme)
+function filtres(jsonTaille, gamme)
 { 
 
 let idFiltre = document.querySelectorAll(".zone-filtre>div>input") ; //Recuperation des checkboxs
@@ -131,7 +110,8 @@ let j=0;
 let tableau = []; //Pour stocker les objets du json concernés
 
 
-  // console.log(idFiltre);
+   console.log("taille: "+idFiltre.length);
+
 
 //Fonction pour supprimer les fiches produits
 
@@ -143,52 +123,65 @@ function removeFiche(){
 }
 
 //Fonction pour afficher les fiches produits
+
 function afficherFiche(){
   for (i=0;i<tableau.length;i++) 
     {
-      console.log(gamme[tableau[i]]);
+      //console.log(gamme[tableau[i]]);
       ficheProduit((gamme)[tableau[i]]);
     }
 }
 
+  // All
+
+  if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
+  {
+      all(jsonTaille,gamme)
+  }
+  if (document.getElementById("ch-all").checked === !true)
+      {
+        removeFiche()
+      }
+
+
 
   //Chocolat blanc
 
-  if (document.getElementById("ch-chocolat-blanc").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-chocolat-blanc").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
-    {      
-      if (gamme[i].category.blanc === true)// Si la checkbox est true= le tableau recupère les IDs 
+
+    for (let i=0;i<jsonTaille;i++)
+    {  console.log("jojo"+i);
+       console.log(jsonTaille + "jsontaille");    
+      if (gamme[i].category.blanc === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
-          console.log(tableau + "blanc");
+          //console.log(tableau + "blanc");
       }
-      if (gamme[i].category.blanc === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.blanc === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       } 
       afficherFiche();// Création des fiches produits
     }
-
-    // Création des fiches produits
     
   }
   
   //Chocolat lait
 
-  if (document.getElementById("ch-chocolat-lait").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-chocolat-lait").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.lait === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.lait === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "lait");
+      //console.log(tableau + "lait");
       }
-      if (gamme[i].category.lait === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.lait === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       } 
@@ -198,38 +191,40 @@ function afficherFiche(){
  
   //Chocolat noir
 
-  if (document.getElementById("ch-chocolat-noir").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-chocolat-noir").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.noir === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.noir === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "noir");
+      //console.log(tableau + "noir");
       }
-      if (gamme[i].category.noir === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.noir === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       } 
       afficherFiche();// Création des fiches produits
     }
   }
+
+
   //Caramel
 
-  if (document.getElementById("ch-caramel").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-caramel").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.caramel === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.caramel === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "caramel");
+      //console.log(tableau + "caramel");
       }
-      if (gamme[i].category.caramel === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.caramel === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       } 
@@ -239,18 +234,18 @@ function afficherFiche(){
 
   //Noix
 
-  if (document.getElementById("ch-noix").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-noix").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.noix === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.noix === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "noix");
+      //console.log(tableau + "noix");
       }
-      if (gamme[i].category.noix === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.noix === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       } 
@@ -260,18 +255,18 @@ function afficherFiche(){
 
   //Fruit
 
-  if (document.getElementById("ch-fruit").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-fruit").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.fruit === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.fruit === true)//le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "fruit");
+      //console.log(tableau + "fruit");
       }
-      if (gamme[i].category.fruit === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.fruit === !true)// les fiches produits sont supprimées
       {
         removeFiche();
       }
@@ -281,45 +276,28 @@ function afficherFiche(){
 
   //Liqueur
 
-  if (document.getElementById("ch-liqueur").checked==true) //Verifie que la checkbox est active
+  if (document.getElementById("ch-liqueur").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
-    for (let i=0;i<idFiltre.length;i++)
+    for (let i=0;i<jsonTaille;i++)
     {      
-      if (gamme[i].category.liqueur === true)// Si la checkbox est true= le tableau recupère les IDs 
+      if (gamme[i].category.liqueur === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
           j++
       
-      console.log(tableau + "liqueur");
+      //console.log(tableau + "liqueur");
       }
-      if (gamme[i].category.liqueur === !true)// Si la checkbox est false= les fiches produits sont supprimées
+      if (gamme[i].category.liqueur === !true)//  les fiches produits sont supprimées
       {
         removeFiche();
       }
       afficherFiche();// Création des fiches produits 
     }
   }
-
-  // All
-  if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
-  {
-    for (let i=0;i<idFiltre.length;i++)
-    {      
-      if (gamme[i].category === true)// Si la checkbox est true= le tableau recupère les IDs 
-      { 
-          tableau[j] = i ;
-          j++
-      
-      console.log(tableau + "all");
-      }
-      if (document.getElementById("ch-all").checked==!true)// Si la checkbox est false= les fiches produits sont supprimées
-      {
-        removeFiche();
-      }
-      afficherFiche();// Création des fiches produits 
-    }
-  }   
+  
 }
+
+
 
 // Transferer des données pour la page produit
 
@@ -341,7 +319,7 @@ function recupererDataLien(json){
 
 function dataLien(event,json){
       let lienActif=event.target;
-      console.log(lienActif);
+      //console.log(lienActif);
 
       let idPageProd= new URLSearchParams(window.location.search);
 
@@ -356,3 +334,21 @@ function dataLien(event,json){
 
 
 // Code qui ne fonctionne pas & Brouillon
+
+//Afficher tous les produits au chargement de la page
+
+  /*if (document.getElementById("ch-all").checked==true && stop ==0)
+  {
+    
+    all(produits.length,produits);
+    
+    stop =1;
+    console.log(stop + "stop");
+    }
+    if (document.getElementById("ch-all").checked === !true)
+      {
+        while(document.getElementById("catalogueProduit").firstChild)
+        {
+        document.getElementById("catalogueProduit").removeChild(document.getElementById("catalogueProduit").firstChild)
+        }
+      }*/
