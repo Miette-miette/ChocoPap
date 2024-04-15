@@ -20,6 +20,7 @@ async function catalogue()
 
 filtres(produits.length,produits);
 
+
 // Recuperer les données pour la page produit 
 
 recupererDataLien(produits);
@@ -110,6 +111,7 @@ let j=0;
 let tableau = []; //Pour stocker les objets du json concernés
 
 
+
    console.log("taille: "+idFiltre.length);
 
 
@@ -132,11 +134,39 @@ function afficherFiche(){
     }
 }
 
+//Fonction pour supprimer les doublons
+
+function deleteDoublon(){
+  for (i=0;i<tableau.length;i++)
+  {
+    for (j=i+1;j<tableau.length;j++)
+    {
+      if (tableau[i]==tableau[j])
+      {
+        console.log(tableau[i] +"tableau i");
+        console.log(tableau[j] +"tableau j");
+        tableau.splice(j,1);
+      }
+    }
+
+  }
+  console.log("tableau final : "+tableau);
+
+}
+
   // All
 
   if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
   {
       all(jsonTaille,gamme)
+      for (let i=1; i<idFiltre.length;i++)
+      {
+        if (idFiltre[i].checked== true)
+        {
+          idFiltre[i].checked== !true;
+          i++
+        }
+      }
   }
   if (document.getElementById("ch-all").checked === !true)
       {
@@ -151,8 +181,7 @@ function afficherFiche(){
   {
 
     for (let i=0;i<jsonTaille;i++)
-    {  console.log("jojo"+i);
-       console.log(jsonTaille + "jsontaille");    
+    {   
       if (gamme[i].category.blanc === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
@@ -163,6 +192,8 @@ function afficherFiche(){
       {
         removeFiche();
       } 
+      deleteDoublon(); 
+      console.log(tableau +"tableau blanc");
       afficherFiche();// Création des fiches produits
     }
     
@@ -177,6 +208,7 @@ function afficherFiche(){
       if (gamme[i].category.lait === true)// le tableau recupère les IDs 
       { 
           tableau[j] = i ;
+          
           j++
       
       //console.log(tableau + "lait");
@@ -184,8 +216,11 @@ function afficherFiche(){
       if (gamme[i].category.lait === !true)// les fiches produits sont supprimées
       {
         removeFiche();
-      } 
+      }
+      deleteDoublon(); 
+      console.log(tableau +"tableau lait");
       afficherFiche();// Création des fiches produits
+      
     } 
   }
  
@@ -206,6 +241,7 @@ function afficherFiche(){
       {
         removeFiche();
       } 
+      deleteDoublon(); 
       afficherFiche();// Création des fiches produits
     }
   }
@@ -228,6 +264,7 @@ function afficherFiche(){
       {
         removeFiche();
       } 
+      deleteDoublon(); 
       afficherFiche();// Création des fiches produits
     }
   }
@@ -249,6 +286,7 @@ function afficherFiche(){
       {
         removeFiche();
       } 
+      deleteDoublon(); 
       afficherFiche();// Création des fiches produits
     }
   }
@@ -270,6 +308,7 @@ function afficherFiche(){
       {
         removeFiche();
       }
+      deleteDoublon(); 
       afficherFiche();// Création des fiches produits 
     }
   }
@@ -291,6 +330,7 @@ function afficherFiche(){
       {
         removeFiche();
       }
+      deleteDoublon(); 
       afficherFiche();// Création des fiches produits 
     }
   }
