@@ -20,7 +20,6 @@ async function catalogue()
 
 filtres(produits.length,produits);
 
-
 // Recuperer les données pour la page produit 
 
 recupererDataLien(produits);
@@ -97,8 +96,24 @@ function all(jsonTaille,gamme){
 
   for (let i=0;i<jsonTaille ;i++)
   {
+    
     ficheProduit((gamme)[i]); // Creer les fiches produits des elements concernés
   }
+}
+
+//Fonction pour decocher les checkboxs
+
+function uncheck(input){
+  for (let i=1; i<input.length;i++)
+      {
+        if (input[i].checked== true)
+        {
+          input[i].checked== false;
+          console.log(input[i] +"input");
+          i++
+        }
+       
+      }
 }
 
 // Fonction filtres des types de chocolats
@@ -158,21 +173,15 @@ function deleteDoublon(){
 
   if (document.getElementById("ch-all").checked==true) //Verifie que la checkbox est active
   {
-      all(jsonTaille,gamme)
-      for (let i=1; i<idFiltre.length;i++)
-      {
-        if (idFiltre[i].checked== true)
-        {
-          idFiltre[i].checked== !true;
-          i++
-        }
-      }
+      all(jsonTaille,gamme) 
+      uncheck(idFiltre);
+      deleteDoublon(); 
+      
   }
   if (document.getElementById("ch-all").checked === !true)
       {
         removeFiche()
       }
-
 
 
   //Chocolat blanc
@@ -245,7 +254,6 @@ function deleteDoublon(){
       afficherFiche();// Création des fiches produits
     }
   }
-
 
   //Caramel
 
