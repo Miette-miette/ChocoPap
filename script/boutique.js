@@ -14,7 +14,6 @@ async function catalogue()
   const reponse= await fetch(request);
   const produits= await reponse.json();
 
-  console.log(produits);
 
 //Filtrer par categories de chocolats
 
@@ -22,7 +21,7 @@ filtres(produits.length,produits);
 
 // Recuperer les données pour la page produit 
 
-recupererDataLien(produits);
+dataProduit();
 
 }
 
@@ -36,6 +35,7 @@ function ficheProduit(jsonObj){
   let produitCard=
     document.createElement("div");
     produitCard.className="card";
+    produitCard.id=jsonObj.id;
     document.getElementById("catalogueProduit").appendChild(produitCard);
     produitCard.style.display="flex";
 
@@ -125,49 +125,48 @@ let idFiltre = document.querySelectorAll(".zone-filtre>div>input") ; //Recuperat
 let j=0;
 let tableau = []; //Pour stocker les objets du json concernés
 
-
-
-   console.log("taille: "+idFiltre.length);
+ console.log("taille: "+idFiltre.length);
 
 
 //Fonction pour supprimer les fiches produits
 
-function removeFiche(){
-  while(document.getElementById("catalogueProduit").firstChild)
+  function removeFiche()
+  {
+    while(document.getElementById("catalogueProduit").firstChild)
     {
       document.getElementById("catalogueProduit").removeChild(document.getElementById("catalogueProduit").firstChild)
     }
-}
+  }
 
 //Fonction pour afficher les fiches produits
 
-function afficherFiche(){
-  for (i=0;i<tableau.length;i++) 
+  function afficherFiche()
+  {
+    for (i=0;i<tableau.length;i++) 
     {
       //console.log(gamme[tableau[i]]);
       ficheProduit((gamme)[tableau[i]]);
     }
-}
+  }
 
 //Fonction pour supprimer les doublons
 
-function deleteDoublon(){
-  for (i=0;i<tableau.length;i++)
+  function deleteDoublon()
   {
-    for (j=i+1;j<tableau.length;j++)
+    for (i=0;i<tableau.length;i++)
     {
-      if (tableau[i]==tableau[j])
+      for (j=i+1;j<tableau.length;j++)
       {
+        if (tableau[i]==tableau[j])
+        {
         console.log(tableau[i] +"tableau i");
         console.log(tableau[j] +"tableau j");
         tableau.splice(j,1);
+        }
       }
     }
-
+    console.log("tableau final : "+tableau);
   }
-  console.log("tableau final : "+tableau);
-
-}
 
   // All
 
@@ -210,7 +209,7 @@ function deleteDoublon(){
   
   //Chocolat lait
 
-  if (document.getElementById("ch-chocolat-lait").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
+    if (document.getElementById("ch-chocolat-lait").checked==true && document.getElementById("ch-all").checked==false) //Verifie que la checkbox est active
   {
     for (let i=0;i<jsonTaille;i++)
     {      
@@ -231,7 +230,7 @@ function deleteDoublon(){
       afficherFiche();// Création des fiches produits
       
     } 
-  }
+    }
  
   //Chocolat noir
 
@@ -342,43 +341,103 @@ function deleteDoublon(){
       afficherFiche();// Création des fiches produits 
     }
   }
-  
+
+  //Prix
+
+  let prixMin=document.getElementById('prix-min').value;
+  console.log(prixMin + "prix minimum");
+
+  let prixMax=document.getElementById('prix-max').value;
+  console.log(prixMax + "prix maximum");
+
+  if(prixMin==!null || prixMax==!null)
+  {
+    for (let i=0;i<jsonTaille;i++)
+    {
+      if (gamme[i].price<prixMin)
+      {
+        console.log(gamme[i].price);
+        removeFiche()
+      }
+      if (gamme[i].price>prixMax)
+      {
+        removeFiche()
+      }
+      if(gamme[i].price>=prixMin && gamme[i].price<=prixMax){
+        afficherFiche();
+        deleteDoublon();
+      }
+      deleteDoublon();
+    }
+  }
+
+  //Notes
+  let noteMin=document.getElementById('noteMin').value;
+  console.log( noteMin+ "note minimum");
+
+  let noteMax=document.getElementById('noteMax').value;
+  console.log(noteMax + "note maximum");
+
+  if(noteMin==!null || noteMax==!null)
+  {
+    for (let i=0;i<jsonTaille;i++)
+    {
+      if (gamme[i].note<noteMin)
+      {
+        console.log(gamme[i].note);
+        removeFiche()
+      }
+      if (gamme[i].note>noteMax)
+      {
+        removeFiche()
+      }
+      if(gamme[i].note>=noteMin && gamme[i].note<=noteMax){
+        afficherFiche();
+        deleteDoublon();
+      }
+      
+    }
+  }
 }
 
 
 
 // Transferer des données pour la page produit
 
-function recupererDataLien(json){
+function dataProduit(){
+  let produitList= document.getElementsByClassName('card').id;
+  console.log(produitList + 'liste des produits');
+
+  for (let i=0;i<produitList.length;i++)
+  {
+    produitList[i].addEventListener('click',idLien(),false)
+  }
+  
+}
+
+function idLien(event){
+  //let lienActif=event.target;
+
+  //console.log();
+}
+
+
+/*
+function recupererDataLien(jsonObj){
  let voirPlus= document.querySelectorAll('#catalogueProduit a');
+
   console.log("recuprerdatalien");
 
-  for(let i=0;i<voirPlus.length;i++){
-    let lien=voirPlus[i];
-
-    console.log(voirPlus + "lien");
-    
-    lien.addEventListener('click',dataLien(json),false)
-    
-    }
+  voirPlus.forEach((element)=>voirPlus.addEventListener('click',dataLien(jsonObj),false))
+     
+    } 
   
-    
-  }
 
-function dataLien(event,json){
+function dataLien(event,jsonObj){
       let lienActif=event.target;
-      //console.log(lienActif);
-
-      let idPageProd= new URLSearchParams(window.location.search);
-
-      /*for (let i=0;i<json.length;i++){
-        let urlPageProd= idPageProd.get(lienActif);
-      }*/
-      
-      //faire un if pour chercher un match entre image et id
-    }
-
-
+      console.log('wesh');
+      //localStorage.setItem(jsonObj.id);
+    }*/
 
 
 // Code qui ne fonctionne pas & Brouillon
@@ -400,3 +459,19 @@ function dataLien(event,json){
         document.getElementById("catalogueProduit").removeChild(document.getElementById("catalogueProduit").firstChild)
         }
       }*/
+/*
+
+
+      //console.log(lienActif);
+
+      let idPageProd= new URLSearchParams(window.location.search);
+
+      /*for (let i=0;i<json.length;i++){
+        let urlPageProd= idPageProd.get(lienActif);
+      }
+      
+      //faire un if pour chercher un match entre image et id
+
+
+      produitList.addEventListener('click',()=>console.log('wesh'),false)
+    }*/
