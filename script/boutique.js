@@ -1,20 +1,48 @@
-// Catalogue produits
+import ListeProduit from './ListeProduit.js';
 
-//Recuperer le JSON et jouer la fonction
+//Recupération du JSON
 
-let stop =0;
+async function fetchRessource(ressource=null)
+{
+
+  const request = new Request(ressource);
+  return (await fetch(request)).text();
+
+}
 
 async function catalogue()
 {
 
-  //Recupération du JSON
-  const requestUrl= './app/products.json';
-  const request = new Request(requestUrl);
+  let productData= await fetchRessource('./app/products.json');//ProductData= variable du JSON
+  productData=JSON.parse(productData);
 
-  const reponse= await fetch(request);
-  const produits= await reponse.json();
+  let productsTemplate= await fetchRessource('./produit-card.html') //ProductTemplate= variable du template html des fiches produit
+
+  let productList= new ListeProduit(productData,productsTemplate);//ProductList=Liste des produits filtrés
+
+  console.log(productData , productsTemplate);
+
+  // Récuperation des produits correspondant aux filtres avec la fonction filtreProduct(listeproduit)
+
+  productList.filtreProduct();
+
+  console.log(productList);
+
+  // Création des fiches produit grace au template et aux données des produits filtrés
+
+  let listProduct=productList.replaceProductTemplate();
+  console.log(listProduct);
+
+  document.getElementById('catalogueProduit').innerHTML=listProduct.join(' ');
 
 
+}
+
+catalogue();
+
+
+
+/*
 //Filtrer par categories de chocolats
 
 filtres(produits.length,produits);
@@ -22,9 +50,6 @@ filtres(produits.length,produits);
 // Recuperer les données pour la page produit 
 
 dataProduit();
-
-}
-
 
 
 //Creer la fiche produit
@@ -43,7 +68,7 @@ function ficheProduit(jsonObj){
   // Création du lien vers la page produit
   let lienProduit=
     document.createElement("a");
-    /*lienProduit.href="produit.html?"/*+ data */;
+    /*lienProduit.href="produit.html?"/*+ data ;
     produitCard.appendChild(lienProduit);
     
 
@@ -80,7 +105,28 @@ function ficheProduit(jsonObj){
 
  
 }
+let filtres={
+  categorie:{
+      "blanc": false,
+      "lait": true,
+      "noir": false,
+      "caramel": false,
+      "noix": true,
+      "fruit": true,
+      "liqueur": false
+      },
 
+  prix:{ 
+      prixMin: 1,
+      prixMax:10,
+      },
+
+  note:{
+      noteMin: 4,
+      noteMax:5,
+      },
+
+    }
 // Lancement de la fonction catalogue, pour creer la boutique dynamique
 
 catalogue()
@@ -421,8 +467,6 @@ function idLien(event){
   //console.log();
 }
 
-
-/*
 function recupererDataLien(jsonObj){
  let voirPlus= document.querySelectorAll('#catalogueProduit a');
 
