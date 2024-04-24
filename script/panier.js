@@ -1,30 +1,35 @@
-async function catalogue()
-{
+import fetchRessource from './fetchRessource.js';
+import gestionPanier from './gestionPanier.js';
 
-  //Recupération du JSON
-  const requestUrl= './app/products.json';
-  const request = new Request(requestUrl);
+let productData= await fetchRessource('./app/products.json');//ProductData= variable du JSON
+  productData=JSON.parse(productData);
 
-  const reponse= await fetch(request);
-  const produits= await reponse.json();
+let panierTemplate= await fetchRessource('./template/panierTemplate.js')
 
-  console.log(produits);
+let panierItemTemplate=await fetchRessource('./template/itemPanierTemplate.html');
 
-  ajoutPanier(produits);
-}
+let panier= new gestionPanier(productData,panierItemTemplate);
 
-function ajoutPanier(json){
-    let btnAjout=document.getElementsByClassName('btnPanier');
-    for(let i=0;i<btnAjout.length;i++){
-        let btn=btnAjout[i];
-    
-        console.log(btn + "btn");
-        
-        btnActif.addEventListener('click',btnClick(json),false);
-}
-}
+//Affichage du panier
 
-function btnClick(event){
-    let btnActif=event.target;
-    console.log(btnActif);
-}
+let conteneurPanier=null
+
+document.getElementById("panier").innerHTML=conteneurPanier.join('');
+
+//AddEventListener sur l'event click avec l'ID card pour identifier le produit ajouté 
+
+
+
+//Sauvegarde du panier grace au localstorage
+
+
+
+
+//Remplissage du template panier
+
+let itemPanier=gestionPanier.replacePanierItemTemplate();
+
+document.getElementById("itemPanier").innerHTML=itemPanier.join('');
+
+//Fonction modification du panier
+

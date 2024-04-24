@@ -4,7 +4,7 @@ import fetchRessource from './fetchRessource.js';
   let productData= await fetchRessource('./app/products.json');//ProductData= variable du JSON
   productData=JSON.parse(productData);
 
-  let productsTemplate= await fetchRessource('./produit-card.html'); //ProductTemplate= variable du template html des fiches produit
+  let productsTemplate= await fetchRessource('./template/produit-card.html'); //ProductTemplate= variable du template html des fiches produit
 
   let productList= new ListeProduit(productData,productsTemplate);//ProductList=Liste des produits filtrés
 

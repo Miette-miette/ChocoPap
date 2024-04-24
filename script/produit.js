@@ -3,7 +3,7 @@ import fetchRessource from './fetchRessource.js';
 
 let productData=JSON.parse(localStorage.getItem('produit'));
 
-let productTemplate= await fetchRessource('./produitPageTemplate.html');
+let productTemplate= await fetchRessource('./template/produitPageTemplate.html');
 
 let pageProduit= new PageProduit(productData,productTemplate);
 

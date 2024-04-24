@@ -2,11 +2,6 @@ export default function pageProduit(productData={},productPageTemplate=""){
 
     this.productData=productData;
     this.productPageTemplate=productPageTemplate;
-   
-    
-
-    //Récuperation de l'event click sur le produit séléctionné, local storage
-
 
     // Fonction création de la page produit personnalisée
 
