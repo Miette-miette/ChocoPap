@@ -79,12 +79,7 @@ export default function listeProduit(productsData={},productsTemplate=""){
             if(id==this.productsData[i].id){
                 return this.productsData[i];
             }
-        }
-
-
-
-        
-      }
-    
+        }     
+      }  
 }
 

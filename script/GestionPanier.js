@@ -1,19 +1,16 @@
-export default function gestionPanier(productData={},panierTemplate=""){
+export default function gestionPanier(productData={},panierItemTemplate=""){
 
     this.productData=productData;
-    this.panierTemplate=panierTemplate;
     this.panierItemTemplate=panierItemTemplate;
 
-    //Affichage du panier+ addition des items
+    
+    
+    
+    
+    
+    // addition des items
 
-    this.prixTotal=function(){
 
-        let prices=this.productData.price;
-        let panierT=this.panierTemplate;
-
-        
-
-    }
 
 
 

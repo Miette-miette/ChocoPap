@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Fjalla+One");
 @import url("https://fonts.googleapis.com/css?family=Droid+Serif");
 
+*{
+    overflow: hidden;
+}
 
 a {
     text-decoration: none;
@@ -175,8 +178,10 @@ h2{
     margin: 2px;
 }
 
-.card>img{
+.card>img {
     width: 300px;
+    object-fit: contain;
+    height: 180px;
 }
 
 .card>button{
@@ -189,8 +194,10 @@ h2{
     margin: 2%;
 }
 
+/* Page produit*/
+
 #presentation{
-    padding-top: 2%;
+    padding: 2% 15%;
 }
 #presentation>div{
     padding: 2%;
@@ -200,8 +207,36 @@ h2{
     padding-right: 50%;
 }
 
+#imageProduct{
+    object-fit: cover;
+}
+
 .btnPanier{
     background-color:#B65F28 ;
     border-radius: 4px;
     border-color: transparent;
+}
+
+/*Panier*/
+
+#panier {
+    right: 0;
+    display: flex;
+    position: absolute;
+    background-color: #fff;
+    align-content: center;
+    border: 1px solid #1e282d;
+    border-top-width: 0;
+    text-align: center;
+    /* transition-duration: 0.4s; */
+    transition: all 0.31s;
+    z-index: 2;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 20px;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+}
+
+#panier.panierFerme{
+    right: -500px;
 }

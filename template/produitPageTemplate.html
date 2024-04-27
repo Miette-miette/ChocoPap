@@ -1,19 +1,24 @@
-<div class="content" id="presentation">
-    <div>
-        <img src="%image%" alt="produit1" width="300" height="300">
-    </div>
-    
-    <div class="table">
-        <div class="text-style1" style="margin-top: 10px">%title%</div>
-        <div class="text-style3" style="margin-top: 10px">%price%</div>
-        <div class="text-style4" style="margin-top: 10px">%description%</div>
-        <input type="number" id="qte" value="1">
-        <div class="btnPanier" style="margin-left: 10px; margin-top: 10px">AJOUTER AU PANIER</div>
-    </div>       
-</div>
+<div class="content d-flex flex-column" id="presentation">
 
-<div class="content table" id="description">
-    <div class="text-style1">Ingrédients</div>
-    <div>%ingredients%</div>
+    <div class="d-flex flex-row">
+        <div>
+            <img src="%image%" alt="produit1" width="300" height="300" id="imageProduct">
+        </div>
+    
+        <div class="table">
+            <div class="text-style1" style="margin-top: 10px">%title%</div>
+            <div class="text-style3" style="margin-top: 10px">%price%</div>
+            <div class="text-style4" style="margin-top: 10px">%description%</div>
+            <div id="ajoutPanier" class="d-flex flex-row">
+                <input type="number" id="qte" value="1">
+                <div class="btnPanier" style="margin-left: 10px; margin-top: 10px">AJOUTER AU PANIER</div>
+            </div> 
+        </div>
+    </div>
+
+    <div class="content table" id="description">
+        <div class="text-style1">Ingrédients</div>
+        <div>%ingredients%</div>
+    </div>
 </div>
     

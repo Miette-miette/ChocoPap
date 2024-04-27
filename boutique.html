@@ -18,13 +18,31 @@
                     <p><a href="index.html">Accueil</a></p></div>
                 <div class="text-style1">
                     <p><a href="boutique.html">Boutique</a></p></div>
-                <div class="panier">
-                    <img src="images/bag.svg" alt="panier" width="70" height="70">
+                <div id="panierBtn">
+                    <img src="images/bag.svg" alt="panier" width="40" height="40">
                 </div>
             </div>
         </header>
         
-        <div id="panier"></div>
+        <div id="panier" class="panierFerme">
+            <aside id="panierConteneur">
+                <div id="headerPanier">
+                    <input type="button">
+                    <h2>Panier</h2>
+                </div>
+            
+                <div id="itemPanier">
+            
+                </div>
+            
+                <div id="footerPanier">
+                    <p>Total:<span id="prixTotal"></span> &euro;</p>
+                    <input type="button" value="Réinitialiser le panier">
+                    <input type="button" value="Valider le panier">
+                </div>
+            </aside>
+        </div>
+
         <div class="content ">
             <!-- FILTRES -->
             
@@ -110,5 +128,6 @@
         </div>
         
         <script src="/script/boutique.js" type="module"></script>
+        <script src="/script/panier.js" type="module"></script>
     </body>
 </html>
