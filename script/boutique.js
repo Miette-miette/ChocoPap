@@ -46,7 +46,7 @@ async function catalogue()
 
   //Parcourir les elements de la page class=card
 
-  let card=document.getElementsByClassName('card');
+  let card=document.getElementsByClassName('cardTop');
   console.log(card, 'card');
   
 

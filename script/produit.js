@@ -11,6 +11,4 @@ let pageProduit= new PageProduit(productData,productTemplate);
 
 document.getElementById('ficheProduit').innerHTML=pageProduit.replacePageTemplate();
 
-console.log('page produit',pageProduit);
 console.log('productData',productData);
-console.log('productTemplate',productTemplate);

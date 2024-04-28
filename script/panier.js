@@ -1,5 +1,5 @@
 import fetchRessource from './fetchRessource.js';
-import gestionPanier from './gestionPanier.js';
+import gestionPanier from './GestionPanier.js';
 import ListeProduit from './ListeProduit.js';
 
 let productData= await fetchRessource('./app/products.json');//ProductData= variable du JSON
@@ -21,63 +21,63 @@ btnPanier.addEventListener('click',()=>{
   let panier = document.getElementById("panier");
     
   panier.classList.toggle("panierFerme");
-
   }
 )
-
-//AddEventListener sur l'event click avec l'ID card pour identifier le produit ajouté 
-
-/*let ajoutPanier=document.getElementsByClassName("btnPanier");
-console.log(ajoutPanier + 'ajout panier');*/
-
-/*for (let p=0; p<ajoutPanier.length;p++){
-  ajoutPanier[p].addEventListener('click',()=>{
-  localStorage.setItem('produitPanier', JSON.stringify(productList.produitFromId(ajoutPanier[p].id)));
-  }
-)
-}*/
 
 //Ajout panier sur page produit
 
 
-let ajoutPanierProduit=document.getElementById("ajoutPanier");
+let ajoutPanierProduit=document.getElementById("ajoutPanier") ? document.getElementById("ajoutPanier") : document.getElementsByClassName("ajoutPanier"); 
 
 ajoutPanierProduit.addEventListener('click',()=>{
 
-  let produitStorage=localStorage.getItem("produit");
-  let qteProduit=document.getElementById("qte").value;
-  let produitsTab= localStorage.getItem("produitPanier") ? JSON.parse(localStorage.getItem("produitPanier")) :[];
+  //Récuperation des data de l'item 
 
+  panier.panierData();
 
-  //Boucle for pour verifier les id des items dans le panier
-
-  for(let i=0;i<produitsTab.length;i++){
-    //Ajustement des quantité si item deja existant
-    if(produitsTab[i].id==JSON.parse(produitStorage).id){
-
-      produitsTab[i].qte =parseInt(produitsTab[i].qte)+parseInt(qteProduit) ;
-      localStorage.setItem("produitPanier", JSON.stringify(produitsTab));
-
-      return 0;
-    }
-  }
-  //Remplissage du tableau si nouveau item
+  //prix total
+    
+  panier.prixTotal();
   
-  let itemPanier={id:JSON.parse(produitStorage).id, qte:qteProduit}
-  //let itemAjoutPanier=gestionPanier.replacePanierItemTemplate();
+ //Affichage de l'item dans le panier
 
-  produitsTab.push(itemPanier);
-
-  localStorage.setItem("produitPanier", JSON.stringify(produitsTab));
-  
-  /*localStorage.getItem('produitPanier', JSON.stringify(productData.produitFromId(itemPanier).id));
-
-  document.getElementById("itemPanier").innerHTML=itemAjoutPanier.join('');*/
+ panier.replacePanierItemTemplate();
 
 })
 
+let viderPanier=document.getElementById("resetBtn")/*||document.getElementsByClassName("ajoutPanier");*/
+
+viderPanier.addEventListener('click',()=>{
+
+  console.log(viderPanier,'vider panier');
+
+  localStorage.setItem('produitPanier',[]);
+  document.getElementById("prixTotal").innerHTML=0;
+  
+
+ //Affichage de l'item dans le panier
+
+})
 
 //Remplissage du template panier
 
+let itemAjoutPanier=panier.replacePanierItemTemplate();
 
 //Fonction modification du panier
+
+panier.prixTotal();
+//AddEventListener sur l'event click avec l'ID card pour identifier le produit ajouté 
+
+/*let ajoutPanierCard=document.getElementsByClassName("ajoutPanier");
+console.log(ajoutPanierCard + 'ajout panier');
+
+for (let p=0; p<ajoutPanierCard.length;p++){
+
+  console.log(ajoutPanierCard.length, "btn panier tableau");
+
+  ajoutPanierCard[p].addEventListener('click',()=>{
+
+    localStorage.setItem('produitPanier', JSON.stringify(productList.produitFromId(ajoutPanierCard[p].id)));
+  }
+)
+}*/
