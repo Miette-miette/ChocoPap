@@ -64,15 +64,15 @@ ajoutPanierProduit.addEventListener('click',()=>{
   //Remplissage du tableau si nouveau item
   
   let itemPanier={id:JSON.parse(produitStorage).id, qte:qteProduit}
-  let itemAjoutPanier=gestionPanier.replacePanierItemTemplate();
+  //let itemAjoutPanier=gestionPanier.replacePanierItemTemplate();
 
   produitsTab.push(itemPanier);
 
   localStorage.setItem("produitPanier", JSON.stringify(produitsTab));
   
-  localStorage.getItem('produitPanier', JSON.stringify(productData.produitFromId(itemPanier).id));
+  /*localStorage.getItem('produitPanier', JSON.stringify(productData.produitFromId(itemPanier).id));
 
-  document.getElementById("itemPanier").innerHTML=itemAjoutPanier.join('');
+  document.getElementById("itemPanier").innerHTML=itemAjoutPanier.join('');*/
 
 })
 
