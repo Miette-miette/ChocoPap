@@ -1,0 +1,22 @@
+@media (max-width: 768px) { 
+
+    body{
+        overflow-x: hidden;
+    }
+
+    #front-carousel>h1 {
+        font-size: 60px;
+    }
+
+    #social-network>div{
+        padding:2% ;
+        }
+
+    .zone-filtre{
+        display: none;
+    }
+
+    #imageProduct{
+        width: 280PX;
+    }
+}

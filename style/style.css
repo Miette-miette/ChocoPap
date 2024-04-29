@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Fjalla+One");
 @import url("https://fonts.googleapis.com/css?family=Droid+Serif");
 
-*{
-    overflow-x: hidden;
-}
 
 a {
     text-decoration: none;
@@ -11,6 +8,7 @@ a {
 
 body {
     background-color: #2C1E1E;
+    overflow-x: hidden;
 }
 
 .content {
@@ -27,6 +25,7 @@ body {
     align-items: center;
 }
 
+
 #header-right p {
     margin-left: 20px;
 }
@@ -39,9 +38,7 @@ body {
     margin: 5px;
 }
 
-#informations, #contact {
-    margin: 20px;
-}
+
 
 
 .text-style1 {
@@ -68,10 +65,28 @@ body {
     font-size: 18px;
 }
 .text-style3, .text-style4 {
-    color: #2C1E1E;
     font-family: 'Droid Serif';
 }
 
+/* menu*/
+#btnMenuToggle{
+    width: 70px;
+    position:absolute;
+    top: 20px;
+    right: 10px;
+}
+#menuCollapse{
+    display: none;
+}
+
+/*footer*/
+
+#footer{
+    color: #fff;
+}
+#informations, #contact {
+    margin: 20px;
+}
 
 /*Filtres*/
 
@@ -109,7 +124,7 @@ main{
     flex-direction: column;
     justify-content: center;
     z-index: 2;
-    margin-top: 10%;
+    margin-top: 20%;
     align-items: center;
 }
 
@@ -121,18 +136,20 @@ main{
 }
 
 #button-boutique {
-    background-color: #f0f0f0;
+    background-color:#B65F28 ;
+    border-radius: 4px;
+    border-color: transparent;
+    padding: 10px 15px;
     display: flex;
     justify-content: center;
-    padding: 2%;
     width: fit-content;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
     
 }
 
 * {box-sizing:border-box}
 
 .carousel-container {
-  max-width: 100%;
   position: relative;
   margin: auto;
   z-index: 1;
@@ -176,6 +193,7 @@ h2{
     align-items: center;
     padding: 3%;
     margin: 2px;
+    cursor: pointer;
 }
 
 .cardTop{
@@ -246,5 +264,5 @@ h2{
 }
 
 #panier.panierFerme{
-    right: -500px;
+    right: -1500px;
 }
